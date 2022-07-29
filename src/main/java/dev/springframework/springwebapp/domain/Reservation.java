@@ -2,6 +2,7 @@ package dev.springframework.springwebapp.domain;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -12,35 +13,34 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name = "RESERVATION_ID")
-    private long id;
+    private Long id;
     @Column
     private Integer personCount;
     @Column
     private double price;
     @Column
-    private boolean freeCancellation = true;
+    private Boolean freeCancellation = true;
 
     @ManyToOne
-    private Set <Apartment> apartments = new HashSet<>();
+    @JoinColumn(name = "apartment_id")
+    Apartment apartments;
 
-    private Apartment apartment;
-
+    private Set <Apartment> apartment = new HashSet<>();
     public Reservation(){
 
     }
 
-    public Reservation(Integer personCount, double price, boolean freeCancellation){
+    public Reservation(Integer personCount, double price, Boolean freeCancellation){
         this.personCount = personCount;
         this.price = price;
         this.freeCancellation = freeCancellation;
     }
-
     public Set<Apartment> getApartments() {
-        return apartments;
+        return apartment;
     }
 
     public void setApartments(Set<Apartment> apartments) {
-        this.apartments = apartments;
+        this.apartment = apartment;
     }
 
     public long getId() {
@@ -67,7 +67,11 @@ public class Reservation {
         this.personCount = personCount;
     }
 
-    public void setFreeCancellation(boolean freeCancellation) {
+    public Boolean getFreeCancellation() {
+        return freeCancellation;
+    }
+
+    public void setFreeCancellation(Boolean freeCancellation) {
         this.freeCancellation = freeCancellation;
     }
 

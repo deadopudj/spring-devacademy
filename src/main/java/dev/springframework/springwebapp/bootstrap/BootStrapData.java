@@ -22,8 +22,14 @@ public class BootStrapData implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Apartment villasungarden = new Apartment("VIlla Sun Garden", "Small villa", "Villa Sun Garden smještena je 50m od mora.", "apartman", 5);
-        Reservation one = new Reservation(1, 2550, true);
+        Reservation one = new Reservation(1, 2500, true);
 
-        villasungarden.
+        villasungarden.getReservations().add(one);
+        one.getApartments().add(villasungarden);
+
+        apartmentRepository.save(villasungarden);
+        reservationRepository.save(one);
+
+        System.out.println("Number of reservations:" + reservationRepository.count());
     }
 }

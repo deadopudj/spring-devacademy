@@ -26,7 +26,6 @@ public class Apartment {
     private Integer categoraization;
 
     @OneToMany
-    @JoinColumn(name = "apartment_id");
     private Set <Reservation> reservations = new HashSet<>();
 
     public Apartment() {
